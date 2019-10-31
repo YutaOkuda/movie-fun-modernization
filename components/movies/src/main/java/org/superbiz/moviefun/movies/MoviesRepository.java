@@ -29,7 +29,7 @@ import javax.persistence.metamodel.EntityType;
 import java.util.List;
 
 @Repository
-public class MoviesBean {
+public class MoviesRepository {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -54,7 +54,7 @@ public class MoviesBean {
 
     @Transactional
     public void deleteMovie(Movie movie) {
-        entityManager.remove(movie);
+        entityManager.remove(entityManager.contains(movie) ? movie : entityManager.merge(movie));
     }
 
     @Transactional
